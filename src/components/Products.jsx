@@ -14,6 +14,7 @@ import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/products/ProductsSlice";
+import { displayProduct } from "../features/products/ProductsSlice";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,9 @@ const Products = () => {
             (product) => (
               <Grid item key={product.id}>
                 <Card sx={{ maxWidth: 345 }}>
-                  <CardActionArea>
+                  <CardActionArea
+                    onClick={() => dispatch(displayProduct(product))}
+                  >
                     <Link to={`/products/${product.id}`}>
                       <CardMedia
                         sx={{ height: 140 }}
@@ -50,10 +53,6 @@ const Products = () => {
                       </CardContent>
                     </Link>
                   </CardActionArea>
-
-                  <CardActions>
-                    <Button size="small">Buy Now</Button>
-                  </CardActions>
                 </Card>
               </Grid>
             )

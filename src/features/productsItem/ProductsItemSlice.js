@@ -7,15 +7,21 @@ const initialState = {
   error: "",
 };
 
-export const getProduct = createAsyncThunk("product/getProduct", async (id) => {
-  await axios.get(`https://fakestoreapi.com/products`).then((res) => res.data);
-});
+/* export const getProduct = createAsyncThunk("product/getProduct", async (id, {dispatch}) => {
+ const result = await axios.get(`https://fakestoreapi.com/products/${id}`);
+ 
+
+}); */
 
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
+  reducers: {
+    displayProduct: (state, action) => {
+      state.product = state.products.find((item) => item.id === action.payload);
+    },
+  },
+  /* extraReducers: (builder) => {
     builder.addCase(getProduct.pending, (state) => {
       state.loading = true;
     });
@@ -29,8 +35,8 @@ export const productSlice = createSlice({
       state.product = "";
       state.error = action.error.message;
     });
-  },
+  }, */
 });
 
-export const { filterProducts } = productSlice.actions;
-export default productSlice.reducer;
+/* export const { displayProduct } = productSlice.actions;
+export default productSlice.reducer; */

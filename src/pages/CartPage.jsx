@@ -12,15 +12,15 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addProduct, deleteProduct } from "../features/cart/CartSlice";
 
 const CartPage = () => {
-  const products = useSelector((state) => state.cart.products);
+  const { cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   return (
     <Container>
-      {products.length === 0 ? (
+      {cartProducts.length === 0 ? (
         <Typography>Your Cart is empty</Typography>
       ) : (
-        products.map((item) => (
+        cartProducts.map((item) => (
           <Card key={item.id} sx={{ display: "flex", flexDirection: "row" }}>
             <CardMedia
               sx={{ height: "20rem", width: "40vw" }}

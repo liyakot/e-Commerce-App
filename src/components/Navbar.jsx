@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const mainPages = ["home", "products"];
-  const state = useSelector((state) => state.cart.products);
+  const state = useSelector((state) => state.cart.cartProducts);
 
   return (
     <>
