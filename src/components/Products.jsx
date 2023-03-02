@@ -38,7 +38,10 @@ const Products = () => {
                 <CardActionArea
                   onClick={() => dispatch(displayProduct(product))}
                 >
-                  <Link to={`/products/${product.id}`}>
+                  <Link
+                    to={`/products/${product.id}`}
+                    sx={{ color: Colors.black }}
+                  >
                     <CardMedia
                       sx={{ height: 250, width: 200, margin: "0 auto" }}
                       image={product.image}

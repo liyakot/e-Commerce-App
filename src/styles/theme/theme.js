@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material";
-import { create } from "@mui/material/styles/createTransitions";
 
 export const Colors = {
   primary: "#26a69a",
@@ -9,7 +8,7 @@ export const Colors = {
   secondaryLight: "#ff8f6d",
   secondaryDark: "#b25133",
 
-  //Solid Color
+  //Standard colors
   white: "#fff",
   black: "#363636",
   grayLight: "#bdbdbd",
@@ -32,6 +31,3 @@ const theme = createTheme({
 });
 
 export default theme;
-
-// primary: "#26a69a"
-// secondary: "#ffccbc",

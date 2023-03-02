@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { openDrawer, closeDrawer } from "../features/drawer/DrawerSlice";
+import { useSelector } from "react-redux";
 import {
   AppBar,
   Container,
@@ -59,6 +58,7 @@ const Navbar = () => {
         justifyContent: "center",
         backgroundColor: Colors.primary,
         padding: ".5rem",
+        fontSize: "1.2rem",
       }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
@@ -90,7 +90,7 @@ const Navbar = () => {
   );
 
   return (
-    <AppBar position="sticky" sx={{ width: "100vw" }}>
+    <AppBar position="sticky" sx={{ width: "100vw", fontSize: "1.2rem" }}>
       {matches ? (
         <AppBarContainer>
           <IconButton
