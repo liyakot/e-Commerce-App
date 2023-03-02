@@ -1,4 +1,8 @@
 import React from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { openDrawer, closeDrawer } from "../features/drawer/DrawerSlice";
 import {
   AppBar,
   Container,
@@ -6,124 +10,157 @@ import {
   Typography,
   Box,
   Button,
+  List,
+  ListItem,
   IconButton,
   MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
   Menu,
   ButtonGroup,
+  ListItemButton,
+  Drawer,
 } from "@mui/material";
-import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-/* import MenuIcon from "@mui/icons-material/Menu"; */
+import MenuIcon from "@mui/icons-material/Menu";
+import { ShoppingCart } from "@mui/icons-material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+import { AppBarContainer, AppBarLogo } from "../styles/navbar/navbar";
+import { Colors } from "../styles/theme/theme";
 
 const Navbar = () => {
-  const mainPages = ["home", "products"];
-  const state = useSelector((state) => state.cart.cartProducts);
+  const mainPages = ["home", "products", "about"];
+
+  const cartState = useSelector((state) => state.cart.cartProducts);
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setOpenDrawer(open);
+  };
+
+  const drawerList = (anchor) => (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        backgroundColor: Colors.primary,
+        padding: ".5rem",
+      }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <ButtonGroup
+        sx={{ display: "flex", flexDirection: "column", mb: ".5rem" }}
+      >
+        {mainPages.map((page) => (
+          <Link
+            key={page}
+            to={`/${
+              page === "home" ? "" : page === "about" ? "waiting" : page
+            }`}
+          >
+            <Button key={page} sx={{ color: Colors.white, margin: "0 1rem" }}>
+              {page}
+            </Button>
+          </Link>
+        ))}
+      </ButtonGroup>
+      <Divider color="white" />
+      <Link to={`/account`}>
+        <Button sx={{ color: Colors.white, margin: ".5rem 0  0 .5rem" }}>
+          <AccountCircleIcon />{" "}
+        </Button>
+      </Link>
+    </Box>
+  );
 
   return (
-    <>
-      <AppBar position="sticky">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              LOGO
-            </Typography>
+    <AppBar position="sticky" sx={{ width: "100vw" }}>
+      {matches ? (
+        <AppBarContainer>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            color="inherit"
+            onClick={toggleDrawer("top", true)}
+          >
+            <MenuIcon />
+          </IconButton>
 
-            {/* <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "flex", md: "none" },
-                justifyContent: "center",
-              }}
-            >
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
+          <Drawer
+            anchor="top"
+            open={openDrawer}
+            onClose={toggleDrawer("top", false)}
+          >
+            {drawerList("top")}
+          </Drawer>
+
+          <AppBarLogo variant="h6" noWrap component="a" href="/">
+            SPIKY
+          </AppBarLogo>
+          <Link to={`/cart`}>
+            <Button sx={{ color: "white" }}>
+              <ShoppingCart />{" "}
+              <Typography
+                sx={{ marginTop: "-1rem" }}
+              >{`(${cartState.length})`}</Typography>
+            </Button>
+          </Link>
+        </AppBarContainer>
+      ) : (
+        <AppBarContainer>
+          <AppBarLogo noWrap component="a" href="/">
+            SPIKY
+          </AppBarLogo>
+          <ButtonGroup>
+            {mainPages.map((page) => (
+              <Link
+                key={page}
+                to={`/${
+                  page === "home" ? "" : page === "about" ? "waiting" : page
+                }`}
               >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              Logo
-            </Typography> */}
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {mainPages.map((page) => (
-                <Link key={page} to={`/${page === "home" ? "" : page}`}>
-                  <Button sx={{ my: 2, color: "white", display: "block" }}>
-                    {page}
-                  </Button>
-                </Link>
-              ))}
-            </Box>
-            <ButtonGroup
-              color="inherit"
-              aria-label="medium secondary button group"
-            >
-              <Link to={`/cart`}>
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  {`cart(${state.length})`}
+                <Button key={page} sx={{ color: "white", margin: "0 1rem" }}>
+                  {page}
                 </Button>
               </Link>
-            </ButtonGroup>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </>
+            ))}
+          </ButtonGroup>
+          <Box>
+            <Link to={`/account`}>
+              <Button sx={{ color: "white" }}>
+                <AccountCircleIcon />{" "}
+              </Button>
+            </Link>
+            <Link to={`/cart`}>
+              <Button sx={{ color: "white" }}>
+                <ShoppingCart />{" "}
+                <Typography
+                  sx={{ marginTop: "-1rem" }}
+                >{`(${cartState.length})`}</Typography>
+              </Button>
+            </Link>
+          </Box>
+        </AppBarContainer>
+      )}
+    </AppBar>
   );
 };
 

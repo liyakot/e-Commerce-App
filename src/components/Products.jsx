@@ -11,6 +11,8 @@ import {
   Container,
 } from "@mui/material";
 import Loading from "./Loading";
+import Error from "./Error";
+import { Colors } from "../styles/theme/theme";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/products/ProductsSlice";
@@ -28,50 +30,49 @@ const Products = () => {
 
   const ShowProducts = () => {
     return (
-      <Container>
-        <Grid container spacing={2} sx={{ mt: "2rem" }}>
-          {(filteredProducts.length !== 0 ? filteredProducts : products)?.map(
-            (product) => (
-              <Grid item key={product.id}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardActionArea
-                    onClick={() => dispatch(displayProduct(product))}
-                  >
-                    <Link to={`/products/${product.id}`}>
-                      <CardMedia
-                        sx={{ height: 140 }}
-                        image={product.image}
-                        title={product.title}
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {product.title.substring(0, 20)}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          $ {product.price}
-                        </Typography>
-                      </CardContent>
-                    </Link>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            )
-          )}
-        </Grid>
-      </Container>
+      <Grid container spacing={3} sx={{ mt: "2rem" }} justifyContent="center">
+        {(filteredProducts.length !== 0 ? filteredProducts : products)?.map(
+          (product) => (
+            <Grid item key={product.id}>
+              <Card sx={{ maxWidth: 500, width: 300, height: 400 }}>
+                <CardActionArea
+                  onClick={() => dispatch(displayProduct(product))}
+                >
+                  <Link to={`/products/${product.id}`}>
+                    <CardMedia
+                      sx={{ height: 250, width: 200, margin: "0 auto" }}
+                      image={product.image}
+                      title={product.title}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {product.title.substring(0, 20)}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: Colors.black,
+                          mt: "1rem",
+                          fontWeight: "600",
+                        }}
+                      >
+                        $ {product.price}
+                      </Typography>
+                    </CardContent>
+                  </Link>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          )
+        )}
+      </Grid>
     );
   };
 
   return (
     <>
       <Container>
-        {loading ? (
-          <Loading />
-        ) : error !== "" ? (
-          <Typography>{error}</Typography>
-        ) : (
-          <ShowProducts />
-        )}
+        {loading ? <Loading /> : error !== "" ? <Error /> : <ShowProducts />}
       </Container>
     </>
   );

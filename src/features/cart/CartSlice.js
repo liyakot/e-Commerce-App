@@ -45,8 +45,17 @@ const cartSlice = createSlice({
         );
       }
     },
+    deleteAllProduct: (state, action) => {
+      const exist3 = state.cartProducts.find(
+        (item) => item.id === action.payload.id
+      );
+      state.cartProducts = state.cartProducts.filter(
+        (item) => item.id !== exist3.id
+      );
+    },
   },
 });
 
-export const { addProduct, deleteProduct } = cartSlice.actions;
+export const { addProduct, deleteProduct, deleteAllProduct } =
+  cartSlice.actions;
 export default cartSlice.reducer;

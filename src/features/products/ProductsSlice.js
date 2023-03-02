@@ -7,6 +7,7 @@ const initialState = {
   error: "",
   filteredProducts: [],
   product: "",
+  sortingOption: "Top Rated",
 };
 
 export const getProducts = createAsyncThunk(
@@ -28,6 +29,26 @@ export const productsSlice = createSlice({
           ? state.products
           : state.products.filter((item) => item.category === action.payload);
     },
+
+    setSortingOption: (state, action) => {
+      state.sortingOption = action.payload;
+    },
+
+    sortProducts: (state) => {
+      state.filteredProducts =
+        state.sortingOption === "Price (Low to High)"
+          ? state.filteredProducts.sort(function (a, b) {
+              return a.price - b.price;
+            })
+          : state.sortingOption === "Price (High to Low)"
+          ? state.filteredProducts.sort(function (a, b) {
+              return b.price - a.price;
+            })
+          : state.filteredProducts.sort(function (a, b) {
+              return b.rating - a.rating;
+            });
+    },
+
     displayProduct: (state, action) => {
       state.product = action.payload;
     },
@@ -50,5 +71,10 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { filterProducts, displayProduct } = productsSlice.actions;
+export const {
+  filterProducts,
+  displayProduct,
+  sortProducts,
+  setSortingOption,
+} = productsSlice.actions;
 export default productsSlice.reducer;

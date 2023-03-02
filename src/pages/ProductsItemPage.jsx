@@ -1,5 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import Loading from "../components/Loading";
+import Error from "../components/Error";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addProduct, deleteProduct } from "../features/cart/CartSlice";
+import { useAuth } from "../hooks/useAuth";
 import {
   Box,
   Stack,
@@ -7,67 +12,148 @@ import {
   Typography,
   Container,
   Button,
+  IconButton,
+  Snackbar,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { addProduct, deleteProduct } from "../features/cart/CartSlice";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import CloseIcon from "@mui/icons-material/Close";
+import { AmountButtons } from "../styles/buttons/buttons";
+import { PageContainer } from "../styles/page/container";
+import { Colors } from "../styles/theme/theme";
 
 const ProductsItemPage = () => {
   const dispatch = useDispatch();
+  const { isAuth } = useAuth();
   const { error, loading, product } = useSelector((state) => state.products);
   const { cartProducts } = useSelector((state) => state.cart);
   const productQuantity = cartProducts?.find((item) => item.id === product.id);
   const quantity = productQuantity?.quantity;
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <>
+      <Link to="/login">
+        <Button color="primary" size="small" onClick={handleClose}>
+          log in
+        </Button>
+      </Link>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
 
   return (
     <>
       {loading ? (
         <Loading />
       ) : error !== "" ? (
-        <Typography>{error}</Typography>
+        <Error />
       ) : (
-        <Container>
-          <Stack direction="row">
+        <PageContainer>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <CardMedia
-              sx={{ height: "auto", width: "50vw" }}
+              sx={{
+                width: { xs: 300, md: 1000 },
+                height: { xs: 400, md: 450 },
+                margin: "0 auto",
+                mb: { xs: "2rem" },
+                marginRight: { md: "3.5rem" },
+              }}
               image={product.image}
             />
-            <Box>
-              <Typography variant="h5" onClick={() => console.log(quantity)}>
+            <Box sx={{ width: { xs: "90vw", md: "80vw" } }}>
+              <Typography
+                variant="h6"
+                sx={{ color: Colors.primary, mb: "1rem" }}
+                onClick={() => console.log(quantity)}
+              >
                 {product.category}
               </Typography>
-              <Typography variant="h4">{product.title}</Typography>
-              <Typography variant="h6">
+              <Typography variant="h5" sx={{ mb: "1rem" }}>
+                {product.title}
+              </Typography>
+              <Typography variant="h6" sx={{ mb: "1rem" }}>
                 Rating {product.rating && product.rating.rate}
               </Typography>
-              <Typography variant="body1">{product.description}</Typography>
-              <Typography variant="h4">${product.price}</Typography>
+              <Typography variant="body1" sx={{ mb: "2rem" }}>
+                {product.description.substring(0, 300)}
+              </Typography>
+              <Typography variant="h4" sx={{ mb: "1.5rem" }}>
+                ${product.price}
+              </Typography>
 
-              {quantity ? (
-                <Box>
-                  <RemoveCircleOutlineIcon
-                    onClick={() => dispatch(deleteProduct(product))}
-                  />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {quantity ? (
+                  <AmountButtons>
+                    <RemoveIcon
+                      onClick={() => dispatch(deleteProduct(product))}
+                    />
 
-                  <Typography>Quantity: {quantity ? quantity : 0}</Typography>
-                  <AddCircleOutlineIcon
-                    onClick={() => dispatch(addProduct(product))}
-                  />
-                </Box>
-              ) : (
-                <Button onClick={() => dispatch(addProduct(product))}>
-                  Buy
-                </Button>
-              )}
+                    <Typography>{quantity ? quantity : 0}</Typography>
+                    <AddIcon onClick={() => dispatch(addProduct(product))} />
+                  </AmountButtons>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    onClick={() =>
+                      isAuth ? dispatch(addProduct(product)) : handleClick()
+                    }
+                  >
+                    Buy
+                  </Button>
+                )}
 
-              <Link to={"/cart"}>
-                <Button variant="contained">Go to Cart</Button>
-              </Link>
+                <Link to={"/cart"}>
+                  <Button variant="contained" sx={{ marginLeft: "1rem" }}>
+                    Go to Cart
+                  </Button>
+                </Link>
+              </Box>
             </Box>
-          </Stack>
-        </Container>
+          </Box>
+
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            message="To add an item to your cart, you need to"
+            action={action}
+            anchorOriginBottomLeft
+          />
+        </PageContainer>
       )}
     </>
   );

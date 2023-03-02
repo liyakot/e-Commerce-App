@@ -1,50 +1,97 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import {
   Card,
   Container,
   CardContent,
   CardMedia,
   Typography,
+  CardActions,
+  Button,
+  Box,
 } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { addProduct, deleteProduct } from "../features/cart/CartSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import {
+  addProduct,
+  deleteProduct,
+  deleteAllProduct,
+} from "../features/cart/CartSlice";
+import { AmountButtons } from "../styles/buttons/buttons";
+import { PageContainer } from "../styles/page/container";
+import { Colors } from "../styles/theme/theme";
 
 const CartPage = () => {
   const { cartProducts } = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    let number = 0;
+    cartProducts.map((item) => (number += item.quantity * item.price));
+    console.log(total);
+    setTotal(number.toFixed(2));
+  }, [cartProducts]);
 
   return (
-    <Container>
+    <PageContainer>
       {cartProducts.length === 0 ? (
-        <Typography>Your Cart is empty</Typography>
+        <Typography variant="h4" sx={{ color: Colors.primary }}>
+          Your Cart is empty
+        </Typography>
       ) : (
-        cartProducts.map((item) => (
-          <Card key={item.id} sx={{ display: "flex", flexDirection: "row" }}>
-            <CardMedia
-              sx={{ height: "20rem", width: "40vw" }}
-              image={item.image}
-            />
-            <CardContent>
-              <Typography variant="h5">{item.title}</Typography>
-              <Typography variant="h6">
-                {`${item.quantity} x ${item.price} = $${
-                  item.quantity * item.price
-                }`}
-              </Typography>
-              <RemoveCircleOutlineIcon
-                onClick={() => dispatch(deleteProduct(item))}
+        <Box>
+          {cartProducts.map((item) => (
+            <Card
+              key={item.id}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: "center",
+                justifyContent: "center",
+                mb: "2rem",
+                padding: "1rem",
+              }}
+            >
+              <CardMedia
+                sx={{ height: "20rem", width: "40vw" }}
+                image={item.image}
               />
-              <Typography>{item.quantity}</Typography>
-              <AddCircleOutlineIcon
-                onClick={() => dispatch(addProduct(item))}
-              />
-            </CardContent>
-          </Card>
-        ))
+              <CardContent sx={{ width: { xs: "90vw", md: "70vw" } }}>
+                <Typography variant="h6">{item.title}</Typography>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ mt: "1rem", fontWeight: 600, fontSize: "1.5rem" }}
+                >
+                  ${item.price}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <AmountButtons>
+                  <RemoveIcon onClick={() => dispatch(deleteProduct(item))} />
+
+                  <Typography>{item.quantity}</Typography>
+                  <AddIcon onClick={() => dispatch(addProduct(item))} />
+                </AmountButtons>
+
+                <Button
+                  sx={{ marginLeft: "1rem" }}
+                  onClick={() => dispatch(deleteAllProduct(item))}
+                >
+                  <DeleteIcon color="primary" />
+                </Button>
+              </CardActions>
+            </Card>
+          ))}
+          <Typography variant="h5" sx={{ fontWeight: "600" }}>
+            Total: ${total}
+          </Typography>
+        </Box>
       )}
-    </Container>
+    </PageContainer>
   );
 };
 

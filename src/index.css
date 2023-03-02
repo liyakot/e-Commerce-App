@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+a:-webkit-any-link {
+  text-decoration: none;
+  color: 'white'
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+
+@media screen and (max-width: 350px) {
+  html {
+    font-size: 13px;
+  }
+}
