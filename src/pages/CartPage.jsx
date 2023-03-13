@@ -20,7 +20,7 @@ import {
   deleteAllProduct,
 } from "../features/cart/CartSlice";
 import { AmountButtons } from "../styles/buttons/buttons";
-import { PageContainer } from "../styles/page/container";
+import { PageContainer } from "../styles/page/containers";
 import { Colors } from "../styles/theme/theme";
 
 const CartPage = () => {
@@ -43,53 +43,61 @@ const CartPage = () => {
           Your Cart is empty
         </Typography>
       ) : (
-        <Box>
-          {cartProducts.map((item) => (
-            <Card
-              key={item.id}
-              sx={{
-                display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "2rem",
-                padding: "1rem",
-              }}
-            >
-              <CardMedia
-                sx={{ height: "20rem", width: "40vw" }}
-                image={item.image}
-              />
-              <CardContent sx={{ width: { xs: "90vw", md: "70vw" } }}>
-                <Typography variant="h6">{item.title}</Typography>
-                <Typography
-                  variant="subtitle1"
-                  sx={{ mt: "1rem", fontWeight: 600, fontSize: "1.5rem" }}
-                >
-                  ${item.price}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <AmountButtons>
-                  <RemoveIcon onClick={() => dispatch(deleteProduct(item))} />
-
-                  <Typography>{item.quantity}</Typography>
-                  <AddIcon onClick={() => dispatch(addProduct(item))} />
-                </AmountButtons>
-
-                <Button
-                  sx={{ marginLeft: "1rem" }}
-                  onClick={() => dispatch(deleteAllProduct(item))}
-                >
-                  <DeleteIcon color="primary" />
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
-          <Typography variant="h5" sx={{ fontWeight: "600" }}>
-            Total: ${total}
+        <>
+          <Typography variant="h4" sx={{ textAlign: "center", mb: "2rem" }}>
+            MY CART
           </Typography>
-        </Box>
+          <Box>
+            {cartProducts.map((item) => (
+              <Card
+                key={item.id}
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" },
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mb: "2rem",
+                  padding: "1rem",
+                }}
+              >
+                <CardMedia
+                  sx={{ height: "20rem", width: "40vw" }}
+                  image={item.image}
+                />
+                <CardContent sx={{ width: { xs: "90vw", md: "60vw" } }}>
+                  <Typography variant="h5">{item.title}</Typography>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ mt: "1rem", fontWeight: 600, fontSize: "1.5rem" }}
+                  >
+                    ${item.price}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <AmountButtons>
+                    <RemoveIcon onClick={() => dispatch(deleteProduct(item))} />
+
+                    <Typography>{item.quantity}</Typography>
+                    <AddIcon onClick={() => dispatch(addProduct(item))} />
+                  </AmountButtons>
+
+                  <Button
+                    sx={{ marginLeft: "1rem" }}
+                    onClick={() => dispatch(deleteAllProduct(item))}
+                  >
+                    <DeleteIcon color="primary" sx={{ fontSize: "2rem" }} />
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "600", marginTop: "3rem" }}
+            >
+              TOTAL: ${total}
+            </Typography>
+          </Box>
+        </>
       )}
     </PageContainer>
   );

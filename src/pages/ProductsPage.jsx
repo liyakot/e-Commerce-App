@@ -19,7 +19,7 @@ import {
   sortProducts,
   setSortingOption,
 } from "../features/products/ProductsSlice";
-import { PageContainer } from "../styles/page/container";
+import { PageContainer } from "../styles/page/containers";
 
 import { useState, useEffect } from "react";
 
@@ -65,6 +65,10 @@ const ProductsPage = () => {
   useEffect(() => {
     dispatch(sortProducts());
   }, [filteredProducts, sortingOption]);
+
+  useEffect(() => {
+    dispatch(setSortingOption("Top Rated"));
+  }, []);
 
   return (
     <PageContainer>

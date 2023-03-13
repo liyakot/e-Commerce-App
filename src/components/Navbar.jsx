@@ -24,6 +24,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { ShoppingCart } from "@mui/icons-material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DiamondIcon from "@mui/icons-material/Diamond";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import { AppBarContainer, AppBarLogo } from "../styles/navbar/navbar";
@@ -90,7 +91,10 @@ const Navbar = () => {
   );
 
   return (
-    <AppBar position="sticky" sx={{ width: "100vw", fontSize: "1.2rem" }}>
+    <AppBar
+      position="sticky"
+      sx={{ width: "100vw", fontSize: "1.2rem", padding: ".3rem" }}
+    >
       {matches ? (
         <AppBarContainer>
           <IconButton
@@ -113,8 +117,9 @@ const Navbar = () => {
           </Drawer>
 
           <AppBarLogo variant="h6" noWrap component="a" href="/">
-            SPIKY
+            SHINE <DiamondIcon />
           </AppBarLogo>
+
           <Link to={`/cart`}>
             <Button sx={{ color: "white" }}>
               <ShoppingCart />{" "}
@@ -127,7 +132,7 @@ const Navbar = () => {
       ) : (
         <AppBarContainer>
           <AppBarLogo noWrap component="a" href="/">
-            SPIKY
+            SHINE <DiamondIcon />
           </AppBarLogo>
           <ButtonGroup>
             {mainPages.map((page) => (
@@ -137,7 +142,15 @@ const Navbar = () => {
                   page === "home" ? "" : page === "about" ? "waiting" : page
                 }`}
               >
-                <Button key={page} sx={{ color: "white", margin: "0 1rem" }}>
+                <Button
+                  key={page}
+                  sx={{
+                    color: "white",
+                    margin: "0 1rem",
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                  }}
+                >
                   {page}
                 </Button>
               </Link>

@@ -17,4 +17,7 @@ export const AppBarLogo = styled(Typography)(() => ({
   fontWeight: 700,
   letterSpacing: ".3rem",
   color: Colors.white,
+  fontSize: "1.3rem",
+  fontStyle: "italic",
+  alignItems: "center",
 }));

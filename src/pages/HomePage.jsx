@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Typography,
   Box,
@@ -8,14 +9,12 @@ import {
   ImageListItem,
   Divider,
   CardContent,
+  Button,
 } from "@mui/material";
 import { Colors } from "../styles/theme/theme";
-import Products from "../components/Products";
-import { PageContainer } from "../styles/page/container";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { setImageList } from "../features/products/ProductsSlice";
-import { useDispatch } from "react-redux";
+import { PageContainer, MainImageBox } from "../styles/page/containers";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { MyButton } from "../styles/buttons/buttons";
 
 const HomePage = () => {
   let imageList = [
@@ -33,16 +32,7 @@ const HomePage = () => {
 
   return (
     <PageContainer>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: "center",
-          justifyContent: "center",
-          mb: "3rem",
-          padding: ".5rem",
-        }}
-      >
+      <MainImageBox sx={{ flexDirection: { xs: "column", md: "row" } }}>
         <CardContent>
           <Typography
             variant="h3"
@@ -61,7 +51,7 @@ const HomePage = () => {
           }}
           image="/images/background.png"
         />
-      </Box>
+      </MainImageBox>
       <Divider />
 
       <Typography
@@ -70,7 +60,7 @@ const HomePage = () => {
           textAlign: "center",
           color: Colors.black,
           mb: "3rem",
-          mt: "2rem",
+          mt: "4rem",
         }}
       >
         NEW ARRIVALS
@@ -87,6 +77,11 @@ const HomePage = () => {
           </ImageListItem>
         ))}
       </ImageList>
+      <Link to={"/products"}>
+        <MyButton variant="contained" endIcon={<ArrowForwardIcon />}>
+          See all products
+        </MyButton>
+      </Link>
     </PageContainer>
   );
 };

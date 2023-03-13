@@ -7,7 +7,7 @@ const initialState = {
   error: "",
   filteredProducts: [],
   product: "",
-  sortingOption: "Top Rated",
+  sortingOption: "",
 };
 
 export const getProducts = createAsyncThunk(
@@ -45,7 +45,7 @@ export const productsSlice = createSlice({
               return b.price - a.price;
             })
           : state.filteredProducts.sort(function (a, b) {
-              return b.rating - a.rating;
+              return b.rating.rate - a.rating.rate;
             });
     },
 

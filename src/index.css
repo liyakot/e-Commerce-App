@@ -7,15 +7,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-a:-webkit-any-link {
-  text-decoration: none;
+:focus {
+  outline: 0;
+}
+
+a:active,
+a:hover {
   outline: none;
-  color: 'white'
+}
+
+a:any-link {
+  text-decoration: none;
 }
 
 @media screen and (max-width: 600px) {

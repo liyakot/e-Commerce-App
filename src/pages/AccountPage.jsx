@@ -4,7 +4,8 @@ import { useAuth } from "../hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../features/user/UserSlice";
 import Orders from "../components/Orders";
-import { PageContainer } from "../styles/page/container";
+import { MyButton } from "../styles/buttons/buttons";
+import { PageContainer } from "../styles/page/containers";
 import { Typography, Button } from "@mui/material";
 import { Output } from "@mui/icons-material";
 import { Colors } from "../styles/theme/theme";
@@ -21,14 +22,13 @@ const AccountPage = () => {
         {email}
       </Typography>
       <Orders />
-      <Button
+      <MyButton
         variant="contained"
         onClick={() => dispatch(removeUser())}
         endIcon={<Output />}
-        sx={{ mt: "2rem" }}
       >
         Sign out
-      </Button>
+      </MyButton>
     </PageContainer>
   ) : (
     <Navigate to="/login" />

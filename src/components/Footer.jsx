@@ -29,8 +29,8 @@ const Footer = () => {
               <Typography sx={{ fontWeight: "600", mb: "1rem" }}>
                 HELP
               </Typography>
-              {helpList.map((item) => (
-                <ListItem sx={{ padding: ".1rem" }}>
+              {helpList.map((item, key) => (
+                <ListItem key={key} sx={{ padding: ".1rem" }}>
                   <Link to="/waiting">
                     <ListItemText sx={{ color: Colors.white }} primary={item} />
                   </Link>
@@ -43,8 +43,8 @@ const Footer = () => {
               <Typography sx={{ fontWeight: "600", mb: "1rem" }}>
                 ABOUT
               </Typography>
-              {aboutList.map((item) => (
-                <ListItem sx={{ padding: ".1rem" }}>
+              {aboutList.map((item, key) => (
+                <ListItem key={key} sx={{ padding: ".1rem" }}>
                   <Link to="/waiting">
                     <ListItemText sx={{ color: Colors.white }} primary={item} />
                   </Link>
@@ -57,8 +57,8 @@ const Footer = () => {
               <Typography sx={{ fontWeight: "600", mb: "1rem" }}>
                 INFO
               </Typography>
-              {infoList.map((item) => (
-                <ListItem sx={{ padding: ".1rem" }}>
+              {infoList.map((item, key) => (
+                <ListItem key={key} sx={{ padding: ".1rem" }}>
                   <Link to="/waiting">
                     <ListItemText sx={{ color: Colors.white }} primary={item} />
                   </Link>

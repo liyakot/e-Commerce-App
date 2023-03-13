@@ -19,7 +19,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import CloseIcon from "@mui/icons-material/Close";
 import { AmountButtons } from "../styles/buttons/buttons";
-import { PageContainer } from "../styles/page/container";
+import { PageContainer } from "../styles/page/containers";
 import { Colors } from "../styles/theme/theme";
 
 const ProductsItemPage = () => {

@@ -25,6 +25,10 @@ const Products = () => {
   );
 
   useEffect(() => {
+    console.log(products[0].rating.rate);
+  }, [products, filteredProducts]);
+
+  useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
@@ -38,17 +42,19 @@ const Products = () => {
                 <CardActionArea
                   onClick={() => dispatch(displayProduct(product))}
                 >
-                  <Link
-                    to={`/products/${product.id}`}
-                    sx={{ color: Colors.black }}
-                  >
+                  <Link to={`/products/${product.id}`}>
                     <CardMedia
                       sx={{ height: 250, width: 200, margin: "0 auto" }}
                       image={product.image}
                       title={product.title}
                     />
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{ color: Colors.grayDark, mt: ".5rem" }}
+                      >
                         {product.title.substring(0, 20)}
                       </Typography>
                       <Typography
