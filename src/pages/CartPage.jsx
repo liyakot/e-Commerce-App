@@ -44,7 +44,7 @@ const CartPage = () => {
         </Typography>
       ) : (
         <>
-          <Typography variant="h4" sx={{ textAlign: "center", mb: "2rem" }}>
+          <Typography variant="h4" sx={{ textAlign: "center", mb: "3rem" }}>
             MY CART
           </Typography>
           <Box>
@@ -92,7 +92,7 @@ const CartPage = () => {
             ))}
             <Typography
               variant="h5"
-              sx={{ fontWeight: "600", marginTop: "3rem" }}
+              sx={{ fontWeight: "600", marginTop: "4rem" }}
             >
               TOTAL: ${total}
             </Typography>

@@ -21,7 +21,7 @@ const ErrorPage = () => {
             Our exciting new website will launch soon. Come back and check it
             out.
           </Typography>
-          <Link to={"/products"}>
+          <Link to={"/"}>
             <MyButton
               variant="contained"
               startIcon={<ArrowBackIcon />}

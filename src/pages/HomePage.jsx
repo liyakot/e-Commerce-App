@@ -78,7 +78,7 @@ const HomePage = () => {
         ))}
       </ImageList>
       <Link to={"/products"}>
-        <MyButton variant="contained" endIcon={<ArrowForwardIcon />}>
+        <MyButton variant="contained" endIcon={<ArrowForwardIcon />} mt="3rem">
           See all products
         </MyButton>
       </Link>

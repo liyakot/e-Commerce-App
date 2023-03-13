@@ -86,7 +86,7 @@ const ProductsPage = () => {
       >
         <ButtonGroup
           sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-          color="inherit"
+          color="primary"
           aria-label="medium secondary button group"
         >
           {filterButtons.map((button, key) => (
@@ -116,10 +116,7 @@ const ProductsPage = () => {
               borderRadius: "5px",
             }}
           >
-            <ListItemText
-              sx={{ color: Colors.white }}
-              secondary={sortingOptions[selectedIndex]}
-            />
+            <ListItemText secondary={sortingOptions[selectedIndex]} />
           </ListItem>
         </List>
         <Menu
@@ -136,6 +133,7 @@ const ProductsPage = () => {
               key={option}
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}
+              sx={{ color: Colors.black }}
             >
               {option}
             </MenuItem>
