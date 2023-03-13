@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   Typography,
-  Box,
   CardMedia,
-  Card,
   ImageList,
   ImageListItem,
   Divider,
   CardContent,
-  Button,
 } from "@mui/material";
 import { Colors } from "../styles/theme/theme";
 import { PageContainer, MainImageBox } from "../styles/page/containers";
