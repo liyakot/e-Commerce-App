@@ -25,10 +25,6 @@ const Products = () => {
   );
 
   useEffect(() => {
-    console.log(products[0].rating.rate);
-  }, [products, filteredProducts]);
-
-  useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 

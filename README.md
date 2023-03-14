@@ -11,8 +11,7 @@
 
 ---
 
-An e-commerce application using ReactJS and Redux with Firebase API. I took the basic design from <a href="https://www.behance.net/gallery/93925195/NETFLIX-REDESIGN-UXUI-Movies-TV-Series">here</a>.
-This a desktop version of the site, designed for devices with a width of 992px or more
+An e-commerce application for online shopping using ReactJS and Redux Toolkit with Firebase API. It is a piece of software that allows customers to browse and purchase items from an online store.
 
 The project was created using React and MUI.
 
