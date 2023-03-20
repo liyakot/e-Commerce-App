@@ -95,6 +95,7 @@ const ProductsPage = () => {
               sx={{ margin: ".5rem" }}
               onClick={() => dispatch(filterProducts(button.toLowerCase()))}
               key={key}
+              aria-label={button}
             >
               {button}
             </Button>

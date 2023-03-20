@@ -70,6 +70,7 @@ const Login = () => {
         onClick={handleGoogleSignIn}
         endIcon={<Google />}
         sx={{ margin: "1rem" }}
+        aria-label="Sign in with"
       >
         Sign in with
       </Button>

@@ -75,7 +75,7 @@ const HomePage = () => {
           </ImageListItem>
         ))}
       </ImageList>
-      <Link to={"/products"}>
+      <Link to={"/products"} aria-label="See all products">
         <MyButton variant="contained" endIcon={<ArrowForwardIcon />} mt="3rem">
           See all products
         </MyButton>

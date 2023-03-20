@@ -35,6 +35,7 @@ const Form = ({ title, handleClick }) => {
           variant="contained"
           onClick={() => handleClick(email, password)}
           sx={{ mb: ".5rem" }}
+          aria-label={title}
         >
           {title}
         </Button>

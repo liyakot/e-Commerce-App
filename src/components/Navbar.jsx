@@ -4,21 +4,12 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   AppBar,
-  Container,
-  Toolbar,
   Typography,
   Box,
   Button,
-  List,
-  ListItem,
   IconButton,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
   Divider,
-  Menu,
   ButtonGroup,
-  ListItemButton,
   Drawer,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -74,15 +65,22 @@ const Navbar = () => {
             to={`/${
               page === "home" ? "" : page === "about" ? "waiting" : page
             }`}
+            aria-label={`Go to page: ${
+              page === "home" ? "Home" : page === "about" ? "about" : page
+            }`}
           >
-            <Button key={page} sx={{ color: Colors.white, margin: "0 1rem" }}>
+            <Button
+              key={page}
+              sx={{ color: Colors.white, margin: "0 1rem" }}
+              aria-label={page}
+            >
               {page}
             </Button>
           </Link>
         ))}
       </ButtonGroup>
       <Divider color="white" />
-      <Link to={`/account`}>
+      <Link to={`/account`} aria-label="Go to my Account">
         <Button sx={{ color: Colors.white, margin: ".5rem 0  0 .5rem" }}>
           <AccountCircleIcon />{" "}
         </Button>
@@ -120,7 +118,7 @@ const Navbar = () => {
             SHINE <DiamondIcon />
           </AppBarLogo>
 
-          <Link to={`/cart`}>
+          <Link to={`/cart`} aria-label="Go to my Cart">
             <Button sx={{ color: "white" }}>
               <ShoppingCart />{" "}
               <Typography
@@ -141,6 +139,9 @@ const Navbar = () => {
                 to={`/${
                   page === "home" ? "" : page === "about" ? "waiting" : page
                 }`}
+                aria-label={`Go to page: ${
+                  page === "home" ? "Home" : page === "about" ? "about" : page
+                }`}
               >
                 <Button
                   key={page}
@@ -157,12 +158,12 @@ const Navbar = () => {
             ))}
           </ButtonGroup>
           <Box>
-            <Link to={`/account`}>
+            <Link to={`/account`} aria-label="Go to my Account Page">
               <Button sx={{ color: "white" }}>
                 <AccountCircleIcon />{" "}
               </Button>
             </Link>
-            <Link to={`/cart`}>
+            <Link to={`/cart`} aria-label="Go to my Cart">
               <Button sx={{ color: "white" }}>
                 <ShoppingCart />{" "}
                 <Typography

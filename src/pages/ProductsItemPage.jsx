@@ -120,10 +120,14 @@ const ProductsItemPage = () => {
                   <AmountButtons>
                     <RemoveIcon
                       onClick={() => dispatch(deleteProduct(product))}
+                      aria-label="Remove one unit"
                     />
 
                     <Typography>{quantity ? quantity : 0}</Typography>
-                    <AddIcon onClick={() => dispatch(addProduct(product))} />
+                    <AddIcon
+                      onClick={() => dispatch(addProduct(product))}
+                      aria-label="Add one unit"
+                    />
                   </AmountButtons>
                 ) : (
                   <Button
@@ -131,12 +135,13 @@ const ProductsItemPage = () => {
                     onClick={() =>
                       isAuth ? dispatch(addProduct(product)) : handleClick()
                     }
+                    aria-label="Buy"
                   >
                     Buy
                   </Button>
                 )}
 
-                <Link to={"/cart"}>
+                <Link to={"/cart"} aria-label="Go to Cart">
                   <Button variant="contained" sx={{ marginLeft: "1rem" }}>
                     Go to Cart
                   </Button>

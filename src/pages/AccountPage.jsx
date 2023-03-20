@@ -8,7 +8,6 @@ import { MyButton } from "../styles/buttons/buttons";
 import { PageContainer } from "../styles/page/containers";
 import { Typography, Button } from "@mui/material";
 import { Output } from "@mui/icons-material";
-import { Colors } from "../styles/theme/theme";
 
 const AccountPage = () => {
   const dispatch = useDispatch();
@@ -26,6 +25,7 @@ const AccountPage = () => {
         variant="contained"
         onClick={() => dispatch(removeUser())}
         endIcon={<Output />}
+        aria-label="Sign out"
       >
         Sign out
       </MyButton>

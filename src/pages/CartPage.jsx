@@ -75,15 +75,22 @@ const CartPage = () => {
                 </CardContent>
                 <CardActions>
                   <AmountButtons>
-                    <RemoveIcon onClick={() => dispatch(deleteProduct(item))} />
+                    <RemoveIcon
+                      onClick={() => dispatch(deleteProduct(item))}
+                      aria-label="Remove one unit"
+                    />
 
                     <Typography>{item.quantity}</Typography>
-                    <AddIcon onClick={() => dispatch(addProduct(item))} />
+                    <AddIcon
+                      onClick={() => dispatch(addProduct(item))}
+                      aria-label="Add one unit"
+                    />
                   </AmountButtons>
 
                   <Button
                     sx={{ marginLeft: "1rem" }}
                     onClick={() => dispatch(deleteAllProduct(item))}
+                    aria-label="delete all units of this product"
                   >
                     <DeleteIcon color="primary" sx={{ fontSize: "2rem" }} />
                   </Button>
