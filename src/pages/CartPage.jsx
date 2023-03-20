@@ -32,7 +32,6 @@ const CartPage = () => {
   useEffect(() => {
     let number = 0;
     cartProducts.map((item) => (number += item.quantity * item.price));
-    console.log(total);
     setTotal(number.toFixed(2));
   }, [cartProducts]);
 

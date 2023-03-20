@@ -1,10 +1,10 @@
 import { createTheme } from "@mui/material";
 
 export const Colors = {
-  primary: "#26a69a",
+  primary: "#1D8176",
   secondary: "#e53935",
-  primaryLight: "#51b7ae",
-  primaryDark: "#1a746b",
+  primaryLight: "#4a9a91",
+  primaryDark: "#145a52",
   secondaryLight: "#ff8f6d",
   secondaryDark: "#b25133",
 
@@ -32,4 +32,5 @@ const theme = createTheme({
 
 export default theme;
 
-/*#ff7449*/
+/*#ff7449
+#26a69a*/

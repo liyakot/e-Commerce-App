@@ -32,10 +32,7 @@ const HomePage = () => {
     <PageContainer>
       <MainImageBox sx={{ flexDirection: { xs: "column", md: "row" } }}>
         <CardContent>
-          <Typography
-            variant="h3"
-            sx={{ color: Colors.primaryDark, mb: "2rem" }}
-          >
+          <Typography variant="h3" sx={{ color: Colors.primary, mb: "2rem" }}>
             A new season is coming!
           </Typography>
           <Typography variant="h4" sx={{ color: Colors.primaryLight }}>
