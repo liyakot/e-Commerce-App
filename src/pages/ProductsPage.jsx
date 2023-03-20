@@ -5,12 +5,10 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Container,
-  Menu,
   MenuItem,
-  List,
-  ListItem,
-  ListItemText,
+  FormControl,
+  InputLabel,
+  Select,
 } from "@mui/material";
 import { Colors } from "../styles/theme/theme";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,33 +36,21 @@ const ProductsPage = () => {
     "Price (Low to High)",
   ];
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const open = Boolean(anchorEl);
+  const [sortingValue, setSortingValue] = useState("Top Rated");
 
   const dispatch = useDispatch();
   const { filteredProducts, sortingOption } = useSelector(
     (state) => state.products
   );
 
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-    dispatch(setSortingOption(sortingOptions[index]));
-    dispatch(sortProducts());
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleChange = (event) => {
+    setSortingValue(event.target.value);
   };
 
   useEffect(() => {
+    dispatch(setSortingOption(sortingValue));
     dispatch(sortProducts());
-  }, [filteredProducts, sortingOption]);
+  }, [filteredProducts, sortingOption, sortingValue]);
 
   useEffect(() => {
     dispatch(setSortingOption("Top Rated"));
@@ -81,7 +67,7 @@ const ProductsPage = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: { xs: "column", md: "row" },
+          flexDirection: { md: "row", xs: "column" },
         }}
       >
         <ButtonGroup
@@ -101,8 +87,23 @@ const ProductsPage = () => {
             </Button>
           ))}
         </ButtonGroup>
+        <FormControl
+          sx={{ width: "13rem", margin: { xs: ".5rem" } }}
+          size="small"
+        >
+          <Select
+            value={sortingValue}
+            displayEmpty
+            onChange={handleChange}
+            sx={{ padding: "" }}
+          >
+            {sortingOptions.map((item) => (
+              <MenuItem value={item}>{item}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-        <List component="nav" aria-label="Device settings">
+        {/* <List component="nav" aria-label="Device settings">
           <ListItem
             button
             aria-haspopup="listbox"
@@ -111,13 +112,17 @@ const ProductsPage = () => {
             onClick={handleClickListItem}
             sx={{
               width: "10rem",
-              height: "2.5rem",
+              height: "2.35rem",
               backgroundColor: Colors.primaryLight,
               textAlign: "center",
-              borderRadius: "5px",
+              borderRadius: "4px",
+              color: Colors.white,
             }}
           >
-            <ListItemText secondary={sortingOptions[selectedIndex]} />
+            <ListItemText
+              secondary={sortingOptions[selectedIndex]}
+              sx={{ color: Colors.white }}
+            />
           </ListItem>
         </List>
         <Menu
@@ -134,12 +139,11 @@ const ProductsPage = () => {
               key={option}
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}
-              sx={{ color: Colors.black }}
             >
               {option}
             </MenuItem>
           ))}
-        </Menu>
+        </Menu> */}
       </Box>
       <Products />
     </PageContainer>
