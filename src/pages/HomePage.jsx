@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 import {
   Typography,
   CardMedia,
@@ -28,6 +30,9 @@ const HomePage = () => {
     "https://images.unsplash.com/photo-1613461920867-9ea115fee900?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDh8fGNsb3RoaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
   ];
 
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <PageContainer>
       <MainImageBox sx={{ flexDirection: { xs: "column", md: "row" } }}>
@@ -45,6 +50,7 @@ const HomePage = () => {
             height: { xs: 400, md: 450 },
           }}
           image="/images/background.png"
+          loading="lazy"
         />
       </MainImageBox>
       <Divider />
@@ -60,7 +66,7 @@ const HomePage = () => {
       >
         NEW ARRIVALS
       </Typography>
-      <ImageList variant="masonry" cols={3} gap={8}>
+      <ImageList variant="masonry" cols={matches ? 2 : 3} gap={8}>
         {imageList.map((item) => (
           <ImageListItem key={item}>
             <img
