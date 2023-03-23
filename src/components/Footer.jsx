@@ -25,10 +25,10 @@ const Footer = () => {
       <Box sx={{ padding: "2.5rem 2rem 2rem" }}>
         <Grid container spacing={2} justifyContent="space-around">
           <Grid item>
+            <Typography sx={{ fontWeight: "600", mb: ".5rem" }}>
+              HELP
+            </Typography>
             <List>
-              <Typography sx={{ fontWeight: "600", mb: "1rem" }}>
-                HELP
-              </Typography>
               {helpList.map((item, key) => (
                 <ListItem key={key} sx={{ padding: ".1rem" }}>
                   <Link to="/waiting" aria-label={item}>
@@ -39,10 +39,10 @@ const Footer = () => {
             </List>
           </Grid>
           <Grid item>
+            <Typography sx={{ fontWeight: "600", mb: ".5rem" }}>
+              ABOUT
+            </Typography>
             <List>
-              <Typography sx={{ fontWeight: "600", mb: "1rem" }}>
-                ABOUT
-              </Typography>
               {aboutList.map((item, key) => (
                 <ListItem key={key} sx={{ padding: ".1rem" }}>
                   <Link to="/waiting" aria-label={item}>
@@ -53,10 +53,10 @@ const Footer = () => {
             </List>
           </Grid>
           <Grid item>
+            <Typography sx={{ fontWeight: "600", mb: ".5rem" }}>
+              INFO
+            </Typography>
             <List>
-              <Typography sx={{ fontWeight: "600", mb: "1rem" }}>
-                INFO
-              </Typography>
               {infoList.map((item, key) => (
                 <ListItem key={key} sx={{ padding: ".1rem" }}>
                   <Link to="/waiting" aria-label={item}>
